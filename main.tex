@@ -1,0 +1,127 @@
+\documentclass{article}
+
+\usepackage{fontspec}
+\setmonofont{Ubuntu Mono}
+
+\usepackage[margin=1in]{geometry} 
+\geometry{letterpaper}  
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+\usepackage{graphicx}
+\usepackage{floatrow}
+\usepackage{adjustbox}
+\usepackage[labelformat=simple]{caption, subfig}
+\floatsetup[figure]{style=plain,subcapbesideposition=top}
+\renewcommand{\thesubfigure}{\textbf{\Alph{subfigure}}}
+
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{appendix}
+\usepackage{titling}
+\usepackage[noblocks]{authblk} % https://mirrors.mit.edu/CTAN/macros/latex/contrib/preprint/authblk.pdf
+\usepackage[symbol*,multiple]{footmisc} % https://mirrors.rit.edu/CTAN/macros/latex/contrib/footmisc/footmisc-doc.pdf
+\setfnsymbol{chicago}
+
+\usepackage[displaymath, mathlines]{lineno}
+\linenumbers
+
+\usepackage{mathtools}
+\usepackage{amssymb}        
+\usepackage{mathabx}
+\usepackage[amsmath, amsthm, thmmarks]{ntheorem}
+\usepackage[capitalize, noabbrev]{cleveref}
+\crefname{equation}{eq.}{eqs.}
+\crefname{appendix}{Supplementary Information}{Supplementary Information}
+
+\usepackage[citestyle=authoryear,style=apa,uniquename=false]{biblatex}
+\addbibresource{sources.bib}
+\renewcommand{\cite}{\textcite}
+\newcommand{\citep}{\parencite}
+
+% https://tex.stackexchange.com/questions/43648/why-doesnt-lineno-number-a-paragraph-when-it-is-followed-by-an-align-equation
+\newcommand*\patchAmsMathEnvironmentForLineno[1]{%
+  \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+  \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+  \renewenvironment{#1}%
+     {\linenomath\csname old#1\endcsname}%
+     {\csname oldend#1\endcsname\endlinenomath}}% 
+\newcommand*\patchBothAmsMathEnvironmentsForLineno[1]{%
+  \patchAmsMathEnvironmentForLineno{#1}%
+  \patchAmsMathEnvironmentForLineno{#1*}}%
+\AtBeginDocument{%
+\patchBothAmsMathEnvironmentsForLineno{equation}%
+\patchBothAmsMathEnvironmentsForLineno{align}%
+\patchBothAmsMathEnvironmentsForLineno{flalign}%
+\patchBothAmsMathEnvironmentsForLineno{alignat}%
+\patchBothAmsMathEnvironmentsForLineno{gather}%
+\patchBothAmsMathEnvironmentsForLineno{multline}%
+}
+
+\title{Title}
+
+\author[1,$\dagger$]{Author One}
+\author[2]{Author Two}
+\author[1]{Author Three}
+
+\affil[1]{Affiliation One}
+\affil[2]{Affiliation Two}
+
+\affil[$\dagger$]{Email: \href{mailto:mail@mail.com}{\texttt{mailto:mail@mail.com}}}
+
+
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\noindent {\bf Abstract.} 
+Abstract goes here.
+
+
+\medskip
+
+\noindent \textbf{Keywords.} Keyword one, keyword two, keyword three, keyword four, keyword five.
+
+\section{Introduction}\label{sec:intro}
+
+\section{Results}\label{sec:results}
+
+\section{Discussion}\label{sec:discussion}
+
+\section{Methods}\label{sec:methods}
+
+\vskip .3cm
+{\small
+\noindent \textbf{Data and code.} Data availability.
+
+\noindent \textbf{Acknowledgments.} Acknowledgements.
+}
+
+\printbibliography
+
+\clearpage
+
+\noindent\textbf{\LARGE Supplementary information}
+
+\appendix
+
+\numberwithin{equation}{section}
+\setcounter{figure}{0}
+\renewcommand\thefigure{S\arabic{figure}}
+\renewcommand\thesection{S\arabic{section}}
+\renewcommand\thetable{S\arabic{table}}
+
+\section{Supplementary One}\label{supp:one}
+
+\end{document}
