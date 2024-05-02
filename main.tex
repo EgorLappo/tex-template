@@ -45,7 +45,23 @@
 \crefname{equation}{eq.}{eqs.}
 \crefname{appendix}{Supplementary Information}{Supplementary Information}
 
-\usepackage[citestyle=authoryear,style=apa,uniquename=false]{biblatex}
+\usepackage[citestyle=authoryear,style=apa,uniquename=false,isbn=false,url=false,backend=biber]{biblatex}
+% hide "editor" field in refs (https://tex.stackexchange.com/questions/522711/biblatex-ignores-useeditor-false-option)
+\DeclareSourcemap{
+  \maps[datatype=bibtex, overwrite]{
+    \map{
+      \step[fieldset=editor, null]
+    }
+  }
+}
+% no big doi url (https://tex.stackexchange.com/questions/471364/change-appearance-of-already-modified-doi-field-in-biblatex)
+\DeclareFieldFormat{doi}{%
+  doi\addcolon\space
+  \ifhyperref
+    {\href{https://doi.org/#1}{\nolinkurl{#1}}}
+    {\nolinkurl{#1}}%
+}
+
 \addbibresource{sources.bib}
 \renewcommand{\cite}{\textcite}
 \newcommand{\citep}{\parencite}
